@@ -1,3 +1,6 @@
+/**
+ * To understand what is List, check models/list
+ */
 const List = require('../models/list');
 
 exports.list = (_, res) => {

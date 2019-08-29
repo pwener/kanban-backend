@@ -1,5 +1,12 @@
+require('dotenv').config({path: __dirname + '/.env'})
+
 const mongoose = require('mongoose');
 
-const url = "mongodb+srv://phwener:485263@cluster0-cbrwv.mongodb.net/test?retryWrites=true&w=majority";
+const user = process.env.USER;
+const password = encodeURIComponent(process.env.PASSWORD);
+const uri = process.env.URI;
+const db = process.env.DB;
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+const url = `mongodb+srv://phwener:${password}@${uri}/${db}?retryWrites=true&w=majority`;
+
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true });

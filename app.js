@@ -18,6 +18,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/cards', cardRouter);
-app.use('/lists', listRouter);
+app.use('/lists', listRouter); // check models/list to more explanations
 
 module.exports = app;
