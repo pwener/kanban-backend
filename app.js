@@ -5,8 +5,8 @@ const logger = require('morgan');
 const db = require('./db');
 const helmet  = require('helmet');
 
-const indexRouter = require('./routes/index');
 const cardRouter = require('./routes/card');
+const listRouter = require('./routes/list');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/cards', cardRouter);
+app.use('/lists', listRouter);
 
 module.exports = app;

@@ -1,3 +1,7 @@
+/**
+ * This class represents the columns in kanban board, 
+ * like 'To Do', 'Doing' and 'Done'
+ */
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -15,5 +19,4 @@ const List = new Schema({
   }]
 });
 
-// Compile model from schema
 module.exports = mongoose.model('List', List);
