@@ -6,25 +6,20 @@ const Card = new Schema({
   title: {
     type: String,
     required: true,
-    min: [3, 'Minimum 3 characters'],
-    max: [25, 'Maximum 25 characters']
+    minlength: [4, 'Minimum 4 characters'],
+    maxlength: [25, 'Maximum 25 characters']
   },
   content: {
     type: String,
     required: true,
-    max: [255, 'Maximum 255 characters']
+    maxlength: [255, 'Maximum 255 characters']
   },
   color: {
     type: String,
     required: false,
-    min: [4, 'You need pass something like #FFF'],
-    max: [6, 'You need pass something like #DCDCDC']
+    minlength: [4, 'You need pass a valid color, like #FFF'],
+    maxlength: [7, 'You need pass a valid color, like #DCDCDC']
   },
-  list: [{
-    required: false,
-    type: Schema.Types.ObjectId,
-    ref: 'List'
-  }],
 });
 
 // Compile model from schema
