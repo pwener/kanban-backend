@@ -16,8 +16,13 @@ exports.list = (_, res) => {
 exports.create = (req, res) => {
   const newList = new List(req.body);
 
+  const socketIO = req.io;
+
   newList.save().then(() => {
-    res.redirect('/lists');
+    res.json(newList);
+    socketIO
+      // .in(newList.board.id)
+      .emit('new list created', newList);
   }).catch(() => {
     const err = newList.validateSync();
     res.status(400).send({ error: err.errors });
