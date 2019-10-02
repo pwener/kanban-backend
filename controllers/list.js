@@ -4,7 +4,7 @@
 const List = require('../models/list');
 const SocketAction = require('./socket-actions');
 var mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+var ObjectId = mongoose.Types.ObjectId;
 
 exports.list = (_, res) => {
   List.find({}).exec((err, lists) => {
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
   const socketIO = req.io;
 
   newList.save().then(() => {
-    res.status(200);
+    res.send(200);
     socketIO
       // .in(newList.board.id)
       .emit(SocketAction.ADD_LIST, newList);
@@ -38,7 +38,7 @@ exports.delete = (req, res) => {
   const socketIO = req.io;
 
   List.findByIdAndDelete(new ObjectId(id)).then(() => {
-    res.status(200);
+    res.send(200);
     socketIO.emit(SocketAction.DELETE_LIST, id);
   }).catch((err) => {
     res.status(500).send({ error: err });

@@ -9,4 +9,9 @@ const db = process.env.DB;
 
 const url = `mongodb+srv://phwener:${password}@${uri}/${db}?retryWrites=true&w=majority`;
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  poolSize: 100,
+  socketTimeoutMS: 60000,
+});
