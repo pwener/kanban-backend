@@ -21,16 +21,29 @@ exports.create = (req, res) => {
 
   const socketIO = req.io;
 
-  newList.save().then(() => {
-    res.sendStatus(200);
-    socketIO
-      // .in(newList.board.id)
-      .emit(SocketAction.ADD_LIST, newList);
-  }).catch(() => {
-    const err = newList.validateSync();
-    res.status(400).send({ error: err.errors });
-  });
+  newList.save()
+    .then(() => {
+      res.sendStatus(200);
+      socketIO
+        // .in(newList.board.id)
+        .emit(SocketAction.ADD_LIST, newList);
+    }).catch(() => {
+      const err = newList.validateSync();
+      res.status(400).send({ error: err.errors });
+    });
 };
+
+exports.update = (req, res) => {
+  List.findOneAndUpdate({}, { $set: req.body })
+    .then(() => {
+      res.sendStatus(200);
+      socketIO
+      // .in(newList.board.id)
+      .emit(SocketAction.UPDATE_LIST, newList);
+    }).catch((err) => {
+      res.status(500).send({ error: err });
+    })
+}
 
 exports.delete = (req, res) => {
   const id = req.params.id;
