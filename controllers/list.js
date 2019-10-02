@@ -22,7 +22,7 @@ exports.create = (req, res) => {
   const socketIO = req.io;
 
   newList.save().then(() => {
-    res.send(200);
+    res.sendStatus(200);
     socketIO
       // .in(newList.board.id)
       .emit(SocketAction.ADD_LIST, newList);
@@ -38,7 +38,7 @@ exports.delete = (req, res) => {
   const socketIO = req.io;
 
   List.findByIdAndDelete(new ObjectId(id)).then(() => {
-    res.send(200);
+    res.sendStatus(200);
     socketIO.emit(SocketAction.DELETE_LIST, id);
   }).catch((err) => {
     res.status(500).send({ error: err });

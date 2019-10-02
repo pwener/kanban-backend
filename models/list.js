@@ -19,4 +19,15 @@ const List = new Schema({
   }]
 });
 
+// TODO: consider just same list in kanban
+List.path('name').validate((value, done) => {
+  this.model('List').count({ name: value }, (err, count) => {
+    if (err) {
+      return done(err);
+    } 
+    // If `count` is greater than zero, "invalidate"
+    done(!count);
+  });
+}, 'This list already exist to this Kanban');
+
 module.exports = mongoose.model('List', List);
